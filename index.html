@@ -14,6 +14,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <style>
     /* ─── TOKENS ─────────────────────────────────────────────── */
@@ -533,29 +534,34 @@
       overflow: hidden;
     }
     .pricing-table-head {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      padding: 20px 40px;
-      background: var(--black);
-    }
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  padding: 20px 40px;
+  background: var(--black);
+}
     .pricing-table-head span {
-      font-size: 0.62rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      font-weight: 500;
-    }
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
+}
     .pricing-table-head span:not(:first-child) { text-align: center; }
     .pricing-row {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      padding: 24px 40px;
-      border-bottom: 1px solid var(--grey-line);
-      align-items: center;
-      transition: background 0.3s;
-      opacity: 0;
-      transform: translateX(-20px);
-    }
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  padding: 24px 40px;
+  border-bottom: 1px solid var(--grey-line);
+  align-items: center;
+  transition: background 0.3s;
+  opacity: 0;
+  transform: translateX(-20px);
+}
+.pricing-row .pricing-item-name {
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--black);
+}
     .pricing-row:last-child { border-bottom: none; }
     .pricing-row:hover { background: var(--pink-light); }
     .pricing-item-name {
@@ -563,6 +569,12 @@
       font-weight: 400;
       color: var(--black);
     }
+    .pricing-row .pricing-val {
+  text-align: center;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--green);
+}
     .pricing-item-sub {
       font-size: 0.72rem;
       color: var(--grey-soft);
@@ -1074,12 +1086,11 @@
   <div class="cursor-ring" id="cursorRing"></div>
 
   <!-- FLOATING WHATSAPP -->
-  <a href="https://wa.me/244923456789" target="_blank" class="float-wa" aria-label="Falar no WhatsApp">
+  <a href="https://wa.me/+244948640434" target="_blank" class="float-wa" aria-label="Falar no WhatsApp">
     <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
       <path d="M16 0C7.163 0 0 7.163 0 16c0 2.82.736 5.46 2.023 7.748L0 32l8.46-2.188C10.697 31.22 13.284 32 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.2c-2.54 0-4.913-.682-6.956-1.87l-.498-.295-5.02 1.299 1.334-4.86-.325-.508A13.156 13.156 0 012.8 16C2.8 8.71 8.71 2.8 16 2.8S29.2 8.71 29.2 16 23.29 29.2 16 29.2zm7.228-9.864c-.396-.198-2.344-1.157-2.707-1.287-.363-.132-.627-.198-.89.197-.264.396-1.023 1.288-1.254 1.552-.231.264-.462.297-.858.1-.396-.198-1.672-.616-3.184-1.965-1.177-1.049-1.972-2.344-2.203-2.74-.231-.396-.025-.61.174-.807.178-.178.396-.462.594-.693.198-.231.264-.396.396-.66.132-.265.066-.495-.033-.693-.099-.198-.89-2.146-1.22-2.938-.321-.77-.647-.665-.89-.678l-.758-.013c-.264 0-.693.099-1.056.462-.363.363-1.387 1.355-1.387 3.302s1.42 3.83 1.618 4.094c.198.264 2.794 4.264 6.771 5.981.947.41 1.685.655 2.261.838.95.303 1.814.26 2.497.158.762-.114 2.344-.957 2.674-1.882.33-.924.33-1.716.231-1.882-.099-.165-.363-.264-.759-.462z"/>
     </svg>
   </a>
-
   <!-- NAV -->
   <nav id="mainNav">
     <a href="#" class="nav-logo">
@@ -1240,85 +1251,171 @@
     </div>
   </section>
 
-  <!-- PRICING -->
-  <section id="pricing">
-    <div class="pricing-header">
-      <p class="section-label">Tabela de precos</p>
-      <h2 class="section-title">Transparencia<br>em cada <em>servico</em></h2>
+ <!-- PRICING -->
+<section id="pricing">
+  <div class="pricing-header">
+    <p class="section-label">Tabela de preços</p>
+    <h2 class="section-title">Transparência<br>em cada <em>serviço</em></h2>
+  </div>
+
+  <div class="pricing-table">
+    <div class="pricing-table-head">
+      <span>Artigo / Serviço</span>
+      <span>Preço (Kz)</span>
     </div>
-    <div class="pricing-table">
-      <div class="pricing-table-head">
-        <span>Artigo / Servico</span>
-        <span>Lavagem</span>
-        <span>Pressing</span>
-        <span>Lav. Seco</span>
-      </div>
-      <div class="pricing-row">
-        <div>
-          <div class="pricing-item-name">Camisa / Blusa</div>
-          <div class="pricing-item-sub">Social, casual ou de cerimonia</div>
-        </div>
-        <div class="pricing-val">400 AOA</div>
-        <div class="pricing-val">500 AOA</div>
-        <div class="pricing-val">900 AOA</div>
-      </div>
-      <div class="pricing-row">
-        <div>
-          <div class="pricing-item-name">Calcas</div>
-          <div class="pricing-item-sub">Jeans, sociais ou tecidos delicados</div>
-        </div>
-        <div class="pricing-val">500 AOA</div>
-        <div class="pricing-val">600 AOA</div>
-        <div class="pricing-val">1.200 AOA</div>
-      </div>
-      <div class="pricing-row">
-        <div>
-          <div class="pricing-item-name">Terno / Fato completo</div>
-          <div class="pricing-item-sub">Casaco + Calcas + Colete</div>
-        </div>
-        <div class="pricing-val na">—</div>
-        <div class="pricing-val">2.000 AOA</div>
-        <div class="pricing-val">4.500 AOA</div>
-      </div>
-      <div class="pricing-row">
-        <div>
-          <div class="pricing-item-name">Vestido</div>
-          <div class="pricing-item-sub">Casual, social ou de gala</div>
-        </div>
-        <div class="pricing-val">800 AOA</div>
-        <div class="pricing-val">1.000 AOA</div>
-        <div class="pricing-val">2.500 AOA</div>
-      </div>
-      <div class="pricing-row">
-        <div>
-          <div class="pricing-item-name">Edredao / Cobertor</div>
-          <div class="pricing-item-sub">Solteiro, casal ou king</div>
-        </div>
-        <div class="pricing-val">2.500 AOA</div>
-        <div class="pricing-val na">—</div>
-        <div class="pricing-val na">—</div>
-      </div>
-      <div class="pricing-row">
-        <div>
-          <div class="pricing-item-name">Uniforme Profissional</div>
-          <div class="pricing-item-sub">Medico, empresarial, escolar</div>
-        </div>
-        <div class="pricing-val">600 AOA</div>
-        <div class="pricing-val">700 AOA</div>
-        <div class="pricing-val">1.500 AOA</div>
-      </div>
-      <div class="pricing-row">
-        <div>
-          <div class="pricing-item-name">Gravata / Lenco</div>
-          <div class="pricing-item-sub">Seda, poliester ou outro tecido</div>
-        </div>
-        <div class="pricing-val na">—</div>
-        <div class="pricing-val">300 AOA</div>
-        <div class="pricing-val">800 AOA</div>
-      </div>
+
+    <!-- 1 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">FATO SOCIAL</div>
+      <div class="pricing-val">3.000 Kz</div>
     </div>
-    <p class="pricing-note">* Precos indicativos. O valor final pode variar consoante o estado da peca, tipo de tecido e servicos adicionais necessarios. Contacte-nos para um orcamento personalizado.</p>
-  </section>
+    <!-- 2 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">FATO SAFARE</div>
+      <div class="pricing-val">2.500 Kz</div>
+    </div>
+    <!-- 3 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">FATO OLÍMPICO</div>
+      <div class="pricing-val">3.000 Kz</div>
+    </div>
+    <!-- 4 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">FATO DE MULHER SOCIAL</div>
+      <div class="pricing-val">3.000 Kz</div>
+    </div>
+    <!-- 5 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">FATO DE MULHER DE CAMISA OU CAMISOLA</div>
+      <div class="pricing-val">2.500 Kz</div>
+    </div>
+    <!-- 6 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">CASACO SOCIAL</div>
+      <div class="pricing-val">1.500 Kz</div>
+    </div>
+    <!-- 7 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">CASACO OLÍMPICO</div>
+      <div class="pricing-val">1.500 Kz</div>
+    </div>
+    <!-- 8 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">CASACO DE CABEDAL</div>
+      <div class="pricing-val">2.500 Kz</div>
+    </div>
+    <!-- 9 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">CALÇA SOCIAL</div>
+      <div class="pricing-val">1.500 Kz</div>
+    </div>
+    <!-- 10 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">CALÇA OLÍMPICO</div>
+      <div class="pricing-val">1.500 Kz</div>
+    </div>
+    <!-- 11 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">CALÇA DE MULHER</div>
+      <div class="pricing-val">1.500 Kz</div>
+    </div>
+    <!-- 12 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">CAMISA</div>
+      <div class="pricing-val">1.000 Kz</div>
+    </div>
+    <!-- 13 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">CAMISOLAS</div>
+      <div class="pricing-val">1.000 Kz</div>
+    </div>
+    <!-- 14 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">BLUSA</div>
+      <div class="pricing-val">1.000 Kz</div>
+    </div>
+    <!-- 15 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">TURQUE</div>
+      <div class="pricing-val">1.000 Kz</div>
+    </div>
+    <!-- 16 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">BATA ESCOLAR</div>
+      <div class="pricing-val">1.500 Kz</div>
+    </div>
+    <!-- 17 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">TUNICA</div>
+      <div class="pricing-val">2.500 Kz</div>
+    </div>
+    <!-- 18 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">BECA</div>
+      <div class="pricing-val">2.000 Kz</div>
+    </div>
+    <!-- 19 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">VESTIDO SIMPLES</div>
+      <div class="pricing-val">3.500 Kz</div>
+    </div>
+    <!-- 20 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">VESTIDO DE GALA</div>
+      <div class="pricing-val">6.000 Kz</div>
+    </div>
+    <!-- 21 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">VESTIDO DE ANJINHO</div>
+      <div class="pricing-val">2.500 Kz</div>
+    </div>
+    <!-- 22 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">VESTIDO DE BATISMO PEQUENO</div>
+      <div class="pricing-val">3.500 Kz</div>
+    </div>
+    <!-- 23 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">VESTIDO DE BATISMO MÉDIO</div>
+      <div class="pricing-val">5.500 Kz</div>
+    </div>
+    <!-- 24 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">VESTIDO DE BATISMO GRANDE E GROSSO</div>
+      <div class="pricing-val">12.000 Kz</div>
+    </div>
+    <!-- 25 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">VESTIDO DE NOIVA SIMPLES</div>
+      <div class="pricing-val">18.000 Kz</div>
+    </div>
+    <!-- 26 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">VESTIDO DE NOIVA GRANDE E GROSSO</div>
+      <div class="pricing-val">30.000 Kz</div>
+    </div>
+    <!-- 27 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">COBERTOR PEQUENO</div>
+      <div class="pricing-val">3.500 Kz</div>
+    </div>
+    <!-- 28 -->
+    <div class="pricing-row">
+      <div class="pricing-item-name">COBERTOR GRANDE</div>
+      <div class="pricing-val">7.000 Kz</div>
+    </div>
+  </div>
+
+  <div class="pricing-note">
+    <p><strong>Prazo de entrega:</strong> A entrega dos artigos será efetuada no prazo de até 2 (dois) dias úteis após a receção dos mesmos.</p>
+    <p><strong>Serviço urgente:</strong> Os serviços solicitados com caráter de urgência estarão sujeitos à cobrança de uma taxa adicional correspondente ao dobro do valor normal do serviço.</p>
+    <p><strong>Observação:</strong> O cliente dispõe de um prazo máximo de 30 (trinta) dias para levantar ou retirar os seus artigos após a conclusão do serviço. Findo este prazo, a lavandaria não se responsabiliza por eventuais perdas, danos ou deterioração dos artigos deixados nas suas instalações.</p>
+    <p><strong>Aviso:</strong> Caso os artigos não sejam levantados dentro do prazo estabelecido, será aplicada uma taxa de armazenamento/multas, conforme a tabela em vigor da lavandaria.</p>
+    <p><strong>Contacto:</strong> 948 640 434 &nbsp;|&nbsp; <strong>Endereço:</strong> Rua da Lavandaria, N° 123 Luanda - Angola</p>
+    <p><strong>Slogan:</strong> LIMPEZA QUE CUIDA, QUALIDADE QUE FICA.</p>
+    <p><strong>Diferenciais:</strong> PRAZO RÁPIDO Até 2 dias úteis | LIMPEZA A SECO Mais cuidado com suas peças | QUALIDADE Tecnologia e profissionalismo</p>
+  </div>
+</section>
 
   <!-- WHY -->
   <section id="why">
@@ -1522,7 +1619,7 @@
       <div>
         <p class="footer-col-title">Contacto</p>
         <ul class="footer-col-links">
-          <li><a href="https://wa.me/244923456789" target="_blank">+244 923 456 789</a></li>
+          <li><a href="https://wa.me/+244948640434" target="_blank">+244 948 640 434 </a></li>
           <li><a href="#">Panguila, Sector 3</a></li>
           <li><a href="#">Seg–Sab: 07h–19h</a></li>
         </ul>
@@ -1530,11 +1627,23 @@
     </div>
     <div class="footer-bottom">
       <p class="footer-copy">© 2025 Lavandaria Adelino Pressing. Todos os direitos reservados.</p>
-      <a href="https://wa.me/244923456789" target="_blank" class="footer-wa-btn">
+      <a href="https://wa.me/948 640 434" target="_blank" class="footer-wa-btn">
         Agendar agora
       </a>
+      
+<div id="qr-code-adelino"></div>
     </div>
   </footer>
+<script>
+  new QRCode(document.getElementById("qr-code-adelino"), {
+    text: "https://lavandaria-adelino.vercel.app/",
+    width: 70,
+    height: 70,
+    colorDark: "#D9A8B4",   // rosa da sua marca
+    colorLight: "#0D0D0D",  // fundo preto (combina com o tema)
+    correctLevel: QRCode.CorrectLevel.H
+  });
+</script>
 
 <script>
 // ─── GSAP SETUP ───────────────────────────────────────────────
@@ -1805,7 +1914,7 @@ function sendToWhatsApp() {
     `_Enviado pelo site — Panguila, Sector 3_`
   ].filter(Boolean).join('\n');
 
-  const waNumber = '244923456789';
+  const waNumber = '+244948640434';
   const url = `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
   window.open(url, '_blank');
 }
